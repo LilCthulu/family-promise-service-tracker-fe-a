@@ -1,5 +1,3 @@
-
-
 # Family Promise Service Tracker
 
 Family Promise helps local communities coordinate their compassion to address the root causes of family homelessness. They tap existing local resources to empower families towards economic stability. Families come to them in crisis; they help them rebuild their lives with new skills and ongoing support. They address the issue holistically, providing prevention services before families reach crisis, shelter and case management when they become homeless, and stabilization programs once they have secured housing to ensure they remain independent.
@@ -52,7 +50,7 @@ g
 Setting up map for dashboard:
 
 Must have a token setup in a .env.local file (must create file on fresh clone) with the following format for map to render
-` REACT_APP_MAPBOX_TOKEN = "Token string" `
+`REACT_APP_MAPBOX_TOKEN = "Token string"`
 
 # Contributing
 
