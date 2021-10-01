@@ -1,4 +1,5 @@
 import { axiosWithAuth } from '../../utils/axiosWithAuth';
+import { ADD_SERVICE_TYPE_PROGRAMS_SUCCESS } from './serviceTypeProgramsActions';
 
 export const GET_ALL_SERVICE_TYPES_START = 'GET_ALL_SERVICE_TYPES_START';
 export const GET_ALL_SERVICE_TYPES_SUCCESS = 'GET_ALL_SERVICE_TYPES_SUCCESS';
@@ -80,12 +81,25 @@ export const addServiceTypeAction = typeObj => dispatch => {
   dispatch({ type: ADD_SERVICE_TYPE_START });
 
   axiosWithAuth()
-    .post(`/api/service_types/`, typeObj)
+    .post(`/api/service_types/`, {
+      service_type_name: typeObj.service_type_name,
+      service_type_description: typeObj.service_type_description,
+    })
     .then(res => {
       dispatch({
         type: ADD_SERVICE_TYPE_SUCCESS,
         payload: res.data.service_type,
-      });
+      })
+        .post('/api/service_types_program/', {
+          service_type_id: res.data.service_type.service_type_id,
+          program_id: typeObj.program_id,
+        })
+        .then(res => {
+          dispatch({
+            type: ADD_SERVICE_TYPE_PROGRAMS_SUCCESS,
+            payload: res.data.service_type_programs,
+          });
+        });
     })
     .catch(err => {
       dispatch({ type: ADD_SERVICE_TYPE_FAIL, payload: err.message });

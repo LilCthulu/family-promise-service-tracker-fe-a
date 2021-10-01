@@ -4,8 +4,16 @@ import { Form, Input, Select, Modal, Menu, Dropdown } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 import CC_NumberInput from './CustomizableComponents/CC_NumberInput';
 
-function AddServiceTypeForm({ onCreate, onCancel, visible, programs }) {
+function AddServiceTypeForm({
+  onCreate,
+  onCancel,
+  visible,
+  programs,
+  serviceTypes,
+  state,
+}) {
   const [form] = Form.useForm();
+  console.log('state', state);
 
   //state for which dropdown Value is selected
   const [dropDownValue, setDropDownValue] = useState('');
@@ -14,6 +22,7 @@ function AddServiceTypeForm({ onCreate, onCancel, visible, programs }) {
     setDropDownValue(key);
   };
 
+  console.log('serviceTypes', serviceTypes);
   const menu = (
     <Menu onClick={handleSelectCustomField}>
       <Menu.Item key="Number" value="Number">
@@ -64,7 +73,7 @@ function AddServiceTypeForm({ onCreate, onCancel, visible, programs }) {
           }}
         >
           <Form.Item
-            name="name"
+            name="service_type_name"
             label="Service Name"
             rules={[
               {
@@ -80,21 +89,24 @@ function AddServiceTypeForm({ onCreate, onCancel, visible, programs }) {
             label="Program"
             rules={[
               {
-                // required: true
+                required: true,
                 message: 'Please input the program type',
               },
             ]}
           >
             <Select size="large" placeholder="Select Program">
               {programs.map(item => (
-                <Select.Option key={item.id} value={item.id}>
+                <Select.Option key={item.program_id} value={item.program_id}>
                   {item.program_name}
                 </Select.Option>
               ))}
             </Select>
           </Form.Item>
 
-          <Form.Item label="Service Description" name="description">
+          <Form.Item
+            label="Service Description"
+            name="service_type_description"
+          >
             <Input.TextArea
               placeholder="Enter Details..."
               showCount
